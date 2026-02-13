@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </li>
                 `;
 
-                // If no list exists, create one
+                // If no list exists, create one - henderson hood
                 if (!todoList) {
                     const taskSection = document.querySelector('.task-list');
                     taskSection.innerHTML = `<ul id="todo-list">${taskHTML}</ul>`;
