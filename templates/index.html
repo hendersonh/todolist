@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowTask - Premium To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-blur"></div>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-sparkles"></i> GlowTask</h1>
+            <p>Your elegant task manager</p>
+        </header>
+
+        <section class="add-task">
+            <form action="/add" method="POST">
+                <input type="text" name="title" id="todo-input" placeholder="What needs to be done?" required
+                    autocomplete="off">
+                <button type="submit" id="add-btn"><i class="fas fa-plus"></i></button>
+            </form>
+        </section>
+
+        <section class="task-list">
+            {% if todos %}
+            <ul id="todo-list">
+                {% for todo in todos %}
+                <li class="task-item {% if todo.complete %}completed{% endif %}">
+                    <span class="task-title">{{ todo.title }}</span>
+                    <div class="task-actions">
+                        <a href="/update/{{ todo.id }}" class="action-btn update-btn" data-id="{{ todo.id }}"
+                            title="Toggle Complete">
+                            <i class="fas {% if todo.complete %}fa-redo{% else %}fa-check{% endif %}"></i>
+                        </a>
+                        <a href="/delete/{{ todo.id }}" class="action-btn delete-btn" data-id="{{ todo.id }}"
+                            title="Delete Task">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-clipboard-list"></i>
+                <p>No tasks yet. Add one to get started!</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GlowTask. Powered by Flask.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
